@@ -15,8 +15,8 @@ def cmd(*args):
         sys.exit(res.returncode)
     return res
 
-cmd("git", "config", "user.email", "andymckay@github.com")
-cmd("git", "config", "user.name", "Andy McKay")
+cmd("git", "config", "--global", "user.email", "andymckay@github.com")
+cmd("git", "config", "--global", "user.name", "Andy McKay")
     
 os.chdir("/tmp")
 for project in projects:
