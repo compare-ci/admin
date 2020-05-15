@@ -9,7 +9,7 @@ jobs:
       env:
         TOKEN: ${{ secrets.TOKEN }}
       run: |
-        wget https://github.com/cli/cli/releases/download/v0.5.7/gh_0.5.7_linux_amd64.deb
+        wget https://github.com/cli/cli/releases/download/v0.8.0/gh_0.8.0_linux_amd64.deb
         sudo apt install git && sudo dpkg -i gh_*_linux_amd64.deb
         mkdir -p ~/.config/gh
         echo -e "github.com:\n  - user: andymckay\n    oauth_token: $TOKEN" > ~/.config/gh/config.yml
