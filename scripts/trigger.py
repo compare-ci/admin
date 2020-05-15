@@ -20,6 +20,7 @@ cmd("git", "config", "user.name", "Andy McKay")
     
 os.chdir("/tmp")
 for project in projects:
+    # SSH checkout won't work.
     cmd("git", "clone", "https://github.com/compare-ci/%s.git" % project)
     os.chdir(project)
     filename = ".timestamp"
@@ -27,7 +28,8 @@ for project in projects:
         print("Written timestamp for %s" % project)
         timestamp.write(str(time.time()))
 
-    cmd("git", "remote", "set-url", "git@github.com:compare-ci/%s.git" % project)
+    # HTTPS with gh won't work.
+    cmd("git", "remote", "set-url", "origin", "git@github.com:compare-ci/%s.git" % project)
     cmd("git", "checkout", "-b", "trigger-builds-%s" % time.time())
     cmd("git", "add", ".timestamp")
     cmd("git", "commit", "-m", "Triggered automatic build", "-a")
