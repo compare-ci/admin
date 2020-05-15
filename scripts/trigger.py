@@ -14,6 +14,7 @@ def cmd(*args):
         sys.exit(res.returncode)
     return res
 
+os.chdir("/tmp")
 for project in projects:
     cmd("git", "clone", "https://github.com/compare-ci/%s.git" % project)
     os.chdir(project)
@@ -25,6 +26,6 @@ for project in projects:
     cmd("git", "checkout", "-b", "trigger-builds-%s" % time.time())
     cmd("git", "config", "user.email", "andymckay@github.com")
     cmd("git", "config", "user.name", "Andy McKay")
-    cmd("git", "commit", "-m", "Pushes on the project", "-a")
+    cmd("git", "commit", "-m", "Triggered automatic build", "-a")
     cmd("gh", "pr", "create", "-t", "Trigger automatic builds", "-b", "Automatic pull request trigger")
     print("Successfully created PR.")
