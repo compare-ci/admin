@@ -27,6 +27,7 @@ for project in projects:
     cmd("git", "checkout", "-b", "trigger-builds-%s" % time.time())
     cmd("git", "config", "user.email", "andymckay@github.com")
     cmd("git", "config", "user.name", "Andy McKay")
+    cmd("git", "add", ".timestamp")
     cmd("git", "commit", "-m", "Triggered automatic build", "-a")
     cmd("gh", "pr", "create", "-t", "Trigger automatic builds", "-b", "Automatic pull request trigger")
     print("Successfully created PR.")
