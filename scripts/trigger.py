@@ -15,18 +15,20 @@ def cmd(*args):
         sys.exit(res.returncode)
     return res
 
+cmd("git", "config", "user.email", "andymckay@github.com")
+cmd("git", "config", "user.name", "Andy McKay")
 os.chdir("/tmp")
+
 for project in projects:
-    cmd("git", "clone", "https://github.com/compare-ci/%s.git" % project)
+    cmd("git", "clone", "git@github.com:compare-ci/%s.git" % project)
     os.chdir(project)
+
     filename = ".timestamp"
     with open(filename, "w") as timestamp:
         print("Written timestamp for %s" % project)
         timestamp.write(str(time.time()))
 
     cmd("git", "checkout", "-b", "trigger-builds-%s" % time.time())
-    cmd("git", "config", "user.email", "andymckay@github.com")
-    cmd("git", "config", "user.name", "Andy McKay")
     cmd("git", "add", ".timestamp")
     cmd("git", "commit", "-m", "Triggered automatic build", "-a")
     cmd("gh", "pr", "create", "-t", "Trigger automatic builds", "-b", "Automatic pull request trigger")
