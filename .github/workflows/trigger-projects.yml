@@ -15,4 +15,4 @@ jobs:
         echo -e "github.com:\n  - user: andymckay\n    oauth_token: $TOKEN" > ~/.config/gh/config.yml
     - uses: actions/checkout@v2
     - name: Trigger commits
-      run: python3 admin/trigger.py
+      run: python3 scripts/trigger.py
