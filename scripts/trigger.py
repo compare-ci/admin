@@ -17,7 +17,7 @@ def cmd(*args):
 
 os.chdir("/tmp")
 for project in projects:
-    cmd("git", "clone", "git://github.com/compare-ci/%s.git" % project)
+    cmd("git", "clone", "https://github.com/compare-ci/%s.git" % project)
     os.chdir(project)
     filename = ".timestamp"
     with open(filename, "w") as timestamp:
