@@ -1,0 +1,18 @@
+name: Trigger projects
+on: [repository_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install gh
+      env:
+        TOKEN: ${{ secrets.TOKEN }}
+      run: |
+        wget https://github.com/cli/cli/releases/download/v0.5.7/gh_0.5.7_linux_amd64.deb
+        sudo apt install git && sudo dpkg -i gh_*_linux_amd64.deb
+        mkdir -p ~/.config/gh
+        echo -e "github.com:\n  - user: andymckay\n    oauth_token: $TOKEN" > ~/.config/gh/config.yml
+    - uses: actions/checkout@v2
+    - name: Trigger commits
+      run: python3 admin/trigger.py
