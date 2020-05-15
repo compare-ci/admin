@@ -20,7 +20,7 @@ for project in projects:
     os.chdir(project)
     filename = ".timestamp"
     with open(filename, "w") as timestamp:
-        print("Written timestamp for %s" % filename)
+        print("Written timestamp for %s" % project)
         timestamp.write(str(time.time()))
 
     cmd("git", "checkout", "-b", "trigger-builds-%s" % time.time())
