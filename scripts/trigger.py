@@ -14,9 +14,6 @@ def cmd(*args):
         print(res.stderr.decode("utf-8"))
         sys.exit(res.returncode)
     return res
-
-cmd("git", "config", "--global", "user.email", "andymckay@github.com")
-cmd("git", "config", "--global", "user.name", "Andy McKay")
     
 os.chdir("/tmp")
 for project in projects:
@@ -31,6 +28,8 @@ for project in projects:
     # HTTPS with gh won't work.
     cmd("git", "remote", "set-url", "origin", "git@github.com:compare-ci/%s.git" % project)
     cmd("git", "checkout", "-b", "trigger-builds-%s" % time.time())
+    cmd("git", "config", "--global", "user.email", "andymckay@github.com")
+    cmd("git", "config", "--global", "user.name", "Andy McKay")
     cmd("git", "add", ".timestamp")
     cmd("git", "commit", "-m", "Triggered automatic build", "-a")
     cmd("gh", "pr", "create", "-t", "Trigger automatic builds", "-b", "Automatic pull request trigger")
