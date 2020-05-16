@@ -8,6 +8,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Trigger commits
       run: |
-        pip3 install -U pip3 setuptools 
+        pip3 install -U pip setuptools 
         pip3 install -r requirements.txt
         python3 scripts/trigger.py
