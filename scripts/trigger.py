@@ -9,7 +9,6 @@ from github import Github
 from github import InputGitTreeElement
 
 PAT = os.getenv("PAT", os.getenv("GITHUB_SCRIPT_TOKEN"))
-print("Got a PAT", PAT)
 REPOS_TO_IGNORE = ["admin"]
 
 gh = Github(PAT)
@@ -21,6 +20,10 @@ title = "Automated test %s" % time_str
 
 def create_pull_request(repository):
     print("Creating pull request on:", repository.name)
+    repo.create_git_ref(
+        ref=branch, 
+        sha=repo.get_git_refs()[0].object.sha
+    )
     existing = repo.get_git_tree(repo.get_commits()[0].sha, recursive=True)
     new_tree = []
     for item in existing.tree:
