@@ -77,8 +77,9 @@ def update_issue_with_time(issue, repo, pull, check_run):
     lines = issue.body.split("\n")
     found = 0
     for num, line in enumerate(lines):
-        if line.find(pull.html_url):
-            found = num
+        if line.find(pull.html_url) > -1:
+            found = num + 2
+            continue
 
     started = datetime.datetime.strptime(check_run["started_at"], "%Y-%m-%dT%H:%M:%S%z")
     completed = datetime.datetime.strptime(check_run["completed_at"], "%Y-%m-%dT%H:%M:%S%z")
