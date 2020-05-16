@@ -7,6 +7,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Trigger commits
+      with:
+        PAT: ${{ secrets.PAT }}
       run: |
         pip3 install -U pip setuptools 
         pip3 install -r requirements.txt
