@@ -8,7 +8,7 @@ import time
 from github import Github
 from github import InputGitTreeElement
 
-PAT = os.getenv("INPUT_PAT", os.getenv("GITHUB_SCRIPT_TOKEN"))
+PAT = os.getenv("PAT", os.getenv("GITHUB_SCRIPT_TOKEN"))
 print("Got a PAT", PAT)
 REPOS_TO_IGNORE = ["admin"]
 
