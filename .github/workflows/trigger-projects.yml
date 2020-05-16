@@ -1,5 +1,5 @@
 name: Trigger projects
-on: [repository_dispatch]
+on: [push, repository_dispatch]
 
 jobs:
   build:
