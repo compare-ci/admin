@@ -80,8 +80,8 @@ def update_issue_with_time(issue, repo, pull, check_run):
         if line.find(pull.html_url):
             found = num
 
-    started = datetime.datetime.fromisoformat(check_run["started_at"].replace("Z", "+00:00"))
-    completed = datetime.datetime.fromisoformat(check_run["completed_at"].replace("Z", "+00:00"))
+    started = datetime.datetime.strptime(check_run["started_at"], "%Y-%m-%d %H:%M:%S%z")
+    completed = datetime.datetime.strptime(check_run["completed_at"], "%Y-%m-%d %H:%M:%S%z")
     duration = (completed - started)
     if found:
         lines.insert(found, "|%s|%s|%s|%s|" % (check_run["app"]["name"], started, completed, duration))
