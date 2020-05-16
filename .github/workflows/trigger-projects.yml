@@ -1,5 +1,9 @@
 name: Trigger projects
-on: [push, repository_dispatch]
+on: 
+  push: 
+  repository_dispatch:
+  schedule:
+    - cron: "28 */1 * * *"
 
 jobs:
   build:
