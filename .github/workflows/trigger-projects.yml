@@ -7,7 +7,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Trigger commits
-      with:
+      env:
         PAT: ${{ secrets.PAT }}
       run: |
         pip3 install -U pip setuptools 
