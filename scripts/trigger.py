@@ -86,6 +86,7 @@ def update_issue_with_time(issue, repo, pull, check_run):
             found = num + 2
             continue
 
+    created = datetime.datetime.strptime(pull.raw_data["created_at"], "%Y-%m-%dT%H:%M:%S%z")
     completed = datetime.datetime.strptime(check_run["completed_at"], "%Y-%m-%dT%H:%M:%S%z")
     started = datetime.datetime.strptime(check_run["started_at"], "%Y-%m-%dT%H:%M:%S%z")
     data = (
@@ -93,7 +94,7 @@ def update_issue_with_time(issue, repo, pull, check_run):
          pull.created_at.strftime("%H:%M:%S"),
          started.strftime("%H:%M:%S"),
          completed.strftime("%H:%M:%S"),
-         pull.created_at.astimezone(None) - completed.astimezone(None),
+         completed - created,
          completed - started,
     )
     if found:
