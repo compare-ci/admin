@@ -93,7 +93,7 @@ def update_issue_with_time(issue, repo, pull, check_run):
          pull.created_at.strftime("%H:%M:%S"),
          started.strftime("%H:%M:%S"),
          completed.strftime("%H:%M:%S"),
-         pull.created_at - completed,
+         pull.created_at.astimezone(None) - completed.astimezone(None),
          completed - started,
     ]
     if found:
