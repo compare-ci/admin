@@ -61,7 +61,7 @@ def update_issue_with_pull(issue, repo, pull):
 
 def close_pr(repo, pull):
     pull.edit(state="closed")
-    branch_ref = repo.get_branch(ref=branch)
+    branch_ref = repo.get_git_ref("heads/%s" % time_str)
     branch_ref.delete()
 
 pulls = []
