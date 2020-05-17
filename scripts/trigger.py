@@ -47,6 +47,7 @@ def create_issue():
     body = "This is a tracking issue for the automated tests being run. Test id: `%s`" % test_id
     issue = repo.create_issue(title, body)
     print("Created tracking issue in admin:", issue.number)
+    issue.add_to_labels("Test")
     return issue
 
 def update_issue_with_pull(issue, repo, pull):
