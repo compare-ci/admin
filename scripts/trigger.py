@@ -18,7 +18,7 @@ test_id = "automated-test-%s" % time_str
 branch = "refs/heads/%s" % time_str
 title = "Automated test %s" % time_str
 
-def create_pull_request(repository):
+def create_pull_request(repository, issue):
     print("Creating pull request on:", repository.name)
     repo.create_git_ref(
         ref=branch, 
@@ -38,13 +38,13 @@ def create_pull_request(repository):
     )
     branch_ref = repo.get_git_ref("heads/%s" % time_str)
     branch_ref.edit(new_commit.sha)
-    pull = repo.create_pull(title, title, "master", branch)
+    pull = repo.create_pull(title, "Supports %s" % issue.html_url, "master", branch)
     print("Created pull request successfully:", pull.number)
     return pull
 
 def create_issue():
     repo = org.get_repo("admin")
-    body = "This is a tracking issue for the automated tests being run. Test id: %s" % test_id
+    body = "This is a tracking issue for the automated tests being run. Test id: `%s`" % test_id
     issue = repo.create_issue(title, body)
     print("Created tracking issue in admin:", issue.number)
     return issue
@@ -59,6 +59,11 @@ def update_issue_with_pull(issue, repo, pull):
     body = body + table
     issue.edit(body=body)
 
+def close_pr(repo, pull):
+    pull.edit(state="closed")
+    branch_ref = repo.get_branch(ref=branch)
+    branch_ref.delete()
+
 pulls = []
 issue = create_issue()
 for repo in org.get_repos().get_page(0):
@@ -66,7 +71,7 @@ for repo in org.get_repos().get_page(0):
         print("Ignoring repository:", repo.name)
         continue
 
-    pull = create_pull_request(repo)
+    pull = create_pull_request(repo, issue)
     update_issue_with_pull(issue, repo, pull)
     pulls.append("%s:%s" % (repo.name, pull.number))
     print("Recorded pull request.")
@@ -121,6 +126,7 @@ for x in range(0, 60):
                     update_issue_with_time(issue, repo, pull, check_run)
     
                 print("Completed and removing:", pull_str)
+                close_pr(repo, pull)
                 pulls.remove(pull_str)
             else:
                 print("...not all check suites marked as completed.")
