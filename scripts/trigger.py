@@ -53,7 +53,7 @@ def update_issue_with_pull(issue, repo, pull):
     print("Updating issue: %s with repo: %s" % (issue.number, repo.name))
     body = issue.body
     table = """
-|[%s](%s)|Pull Request Created|Check Suite Start|Check Suite End|Total Duration|Check Duration|
+|[%s](%s)|Pull Created|Check Start|Check End|Total|Check|
 |-|-|-|-|-|-|
 """ % (repo.name, pull.html_url)
     body = body + table
@@ -88,14 +88,14 @@ def update_issue_with_time(issue, repo, pull, check_run):
 
     completed = datetime.datetime.strptime(check_run["completed_at"], "%Y-%m-%dT%H:%M:%S%z")
     started = datetime.datetime.strptime(check_run["started_at"], "%Y-%m-%dT%H:%M:%S%z")
-    data = [
+    data = (
          check_run["app"]["name"], 
          pull.created_at.strftime("%H:%M:%S"),
          started.strftime("%H:%M:%S"),
          completed.strftime("%H:%M:%S"),
          pull.created_at.astimezone(None) - completed.astimezone(None),
          completed - started,
-    ]
+    )
     if found:
         lines.insert(found, "|%s|%s|%s|%s|%s|%s|" % data)
             
