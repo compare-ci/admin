@@ -53,8 +53,8 @@ def update_issue_with_pull(issue, repo, pull):
     print("Updating issue: %s with repo: %s" % (issue.number, repo.name))
     body = issue.body
     table = """
-|[%s](%s)|Start|End|Duration|
-|-|-|-|-|
+|[%s](%s)|Pull Request Created|Check Suite Start|Check Suite End|Total Duration|Check Duration|
+|-|-|-|-|-|-|
 """ % (repo.name, pull.html_url)
     body = body + table
     issue.edit(body=body)
@@ -86,11 +86,18 @@ def update_issue_with_time(issue, repo, pull, check_run):
             found = num + 2
             continue
 
-    started = datetime.datetime.strptime(check_run["started_at"], "%Y-%m-%dT%H:%M:%S%z")
     completed = datetime.datetime.strptime(check_run["completed_at"], "%Y-%m-%dT%H:%M:%S%z")
-    duration = (completed - started)
+    started = datetime.datetime.strptime(check_run["started_at"], "%Y-%m-%dT%H:%M:%S%z")
+    data = [
+         check_run["app"]["name"], 
+         pull.created_at.strftime("%H:%M:%S"),
+         started.strftime("%H:%M:%S"),
+         completed.strftime("%H:%M:%S"),
+         pull.created_at - completed,
+         completed - started,
+    ]
     if found:
-        lines.insert(found, "|%s|%s|%s|%s|" % (check_run["app"]["name"], started, completed, duration))
+        lines.insert(found, "|%s|%s|%s|%s|%s|%s|" % data)
             
     if not found:
         print("Couldn't find this PR in the issue, not updated.")
