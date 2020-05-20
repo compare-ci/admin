@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="graph/primer.css" rel="stylesheet">
+    <title>Compare CI</title>
+</head>
+
+<body>
+    <div class="pagehead bg-gray-dark text-white p-3">
+        <div class="">
+            <h1>Compare CI</h1>
+        </div>
+    </div>
+    <div id="container" class="m-3">
+        <p>Compares CI across multiple systems. Please see <a href="https://github.com/compare-ci">compare-ci</a>. Lower is better.</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"></script>
+    <script>
+
+
+d3.csv('https://raw.githubusercontent.com/compare-ci/admin/master/data/data.csv')
+    .then(makeChart);
+
+var container = document.getElementById("container")
+
+function timeToSecs(time) {
+    let split = time.split(":");
+    return parseInt(split[0]) * 3600 + parseInt(split[1]) * 60 + parseInt(split[2])
+}
+
+function makeChart(rows) {
+    let repos = [...new Set(rows.map(function(d) {return d.Repo}))];
+    let apps = [...new Set(rows.map(function(d) {return d.App}))];
+    let urls = [...new Set(rows.map(function(d) {return d.URL}))];
+    let colours = {
+        "Azure Pipelines": "blue",
+        "GitHub Actions": "firebrick",
+        "Travis CI": "green",
+        "CircleCI Checks": "darkgrey"
+    }
+    for (let repoName of repos) {
+        let header = document.createElement("h2");
+        header.innerText = repoName;
+        header.className = "mt-2";
+        container.append(header);
+
+        let canvas = document.createElement("canvas");
+        container.append(canvas);
+
+        let ctx = canvas.getContext('2d');
+        let dataset = {};
+        for (let app of apps) {
+            dataset[app] = {
+                label: app,
+                backgroundColor: colours[app],
+                borderColor: colours[app],
+                data: [],
+                fill: false
+            }
+        }
+        for (let data of rows) {
+            if (data.Repo === repoName) {
+                dataset[data.App].data.push(timeToSecs(data.Total))
+            }
+        }
+        console.log(Object.values(dataset))
+
+        let chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: urls,
+                datasets: Object.values(dataset)
+            },
+            // Configuration options go here
+            options: {}
+        });
+    }
+
+}
+
+    </script>
+</body>
+</html>
