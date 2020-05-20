@@ -113,7 +113,8 @@ def udpate_with_time(issue, repo, pull, check_run):
     # Also write out a CSV file.
     data = list(data)
     data.insert(0, issue.html_url)
-    with open("data/data.csv", "w") as csvfile:
+    data.insert(1, str(issue.created_at))
+    with open("data/data.csv", "a") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(data)
 
