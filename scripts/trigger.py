@@ -1,3 +1,4 @@
+import csv
 import datetime
 import os
 import requests
@@ -21,7 +22,7 @@ title = "Automated test %s" % time_str
 def create_pull_request(repository, issue):
     print("Creating pull request on:", repository.name)
     repo.create_git_ref(
-        ref=branch, 
+        ref=branch,
         sha=repo.get_git_refs()[0].object.sha
     )
     existing = repo.get_git_tree(repo.get_commits()[0].sha, recursive=True)
@@ -32,8 +33,8 @@ def create_pull_request(repository, issue):
     tree = repo.create_git_tree(new_tree)
 
     new_commit = repo.create_git_commit(
-        message=title, 
-        tree=tree, 
+        message=title,
+        tree=tree,
         parents=[repo.get_commits()[0].commit]
     )
     branch_ref = repo.get_git_ref("heads/%s" % time_str)
@@ -65,6 +66,14 @@ def close_pr(repo, pull):
     branch_ref = repo.get_git_ref("heads/%s" % time_str)
     branch_ref.delete()
 
+def cmd(*args):
+    res = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if res.returncode != 0:
+        print("Error occurred on calling: %s" % ' '.join(args))
+        print(res.stderr.decode("utf-8"))
+        sys.exit(res.returncode)
+    return res
+
 pulls = []
 issue = create_issue()
 for repo in org.get_repos().get_page(0):
@@ -77,7 +86,7 @@ for repo in org.get_repos().get_page(0):
     pulls.append("%s:%s" % (repo.name, pull.number))
     print("Recorded pull request.")
 
-def update_issue_with_time(issue, repo, pull, check_run):
+def udpate_with_time(issue, repo, pull, check_run):
     # Reget, just in case.
     issue = org.get_repo("admin").get_issue(issue.number)
     lines = issue.body.split("\n")
@@ -91,7 +100,7 @@ def update_issue_with_time(issue, repo, pull, check_run):
     completed = datetime.datetime.strptime(check_run["completed_at"], "%Y-%m-%dT%H:%M:%S%z")
     started = datetime.datetime.strptime(check_run["started_at"], "%Y-%m-%dT%H:%M:%S%z")
     data = (
-         check_run["app"]["name"], 
+         check_run["app"]["name"],
          pull.created_at.strftime("%H:%M:%S"),
          started.strftime("%H:%M:%S"),
          completed.strftime("%H:%M:%S"),
@@ -100,7 +109,14 @@ def update_issue_with_time(issue, repo, pull, check_run):
     )
     if found:
         lines.insert(found, "|%s|%s|%s|%s|%s|%s|" % data)
-            
+
+    # Also write out a CSV file.
+    data = list(data)
+    data.insert(0, issue.html_url)
+    with open("data/data.csv", "w") as csvfile:
+        writer = csv.writer(csvfile)
+        writer.write(data)
+
     if not found:
         print("Couldn't find this PR in the issue, not updated.")
 
@@ -110,10 +126,10 @@ for x in range(0, 60):
     pullslist = tuple(pulls)
     for pull_str in pullslist:
         print("Checking check suites for:", pull_str)
-        
+
         # TODO: sigh add in ChecksAPI to PyGitHub
         headers = {
-            "Authorization": "token %s" % PAT, 
+            "Authorization": "token %s" % PAT,
             "Accept": "application/vnd.github.antiope-preview+json"
         }
         url = "https://api.github.com/repos/compare-ci/%s/commits/%s/check-runs"
@@ -132,8 +148,8 @@ for x in range(0, 60):
 
             if all_completed:
                 for check_run in result["check_runs"]:
-                    update_issue_with_time(issue, repo, pull, check_run)
-    
+                    udpate_with_time(issue, repo, pull, check_run)
+
                 print("Completed and removing:", pull_str)
                 close_pr(repo, pull)
                 pulls.remove(pull_str)
@@ -148,3 +164,9 @@ for x in range(0, 60):
     else:
         print("All pull requests processed.")
         break
+
+
+cmd("git", "config", "user.email", "andymckay@github.com")
+cmd("git", "config", "user.name", "Andy McKay")
+cmd("git", "commit", "-m", "Auto update CSV file", "data/data.csv")
+cmd("git", "push")
