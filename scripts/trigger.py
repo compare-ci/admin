@@ -115,7 +115,7 @@ def udpate_with_time(issue, repo, pull, check_run):
     data.insert(0, issue.html_url)
     with open("data/data.csv", "w") as csvfile:
         writer = csv.writer(csvfile)
-        writer.write(data)
+        writer.writerow(data)
 
     if not found:
         print("Couldn't find this PR in the issue, not updated.")
