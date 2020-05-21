@@ -2,6 +2,8 @@ Compare CI is an organisation that allows you to take a build on a repository an
 
 At scheduled intervals, it sends a pull request to each repo in this org (except `admin`). It then collates the time it took to do each build on an issue. It then repeats this so you can compare the performance of each CI over time with the exact same build.
 
+Just [show me the graphs](https://compare-ci.github.io/admin/).
+
 **Status:** just started, it's in progress to see if this is of any use to anyone.
 
 **To do:**
