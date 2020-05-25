@@ -287,3 +287,11 @@ https://github.com/compare-ci/admin/issues/193,node-sum,2020-05-25 16:28:47,Azur
 https://github.com/compare-ci/admin/issues/193,node-sum,2020-05-25 16:28:47,GitHub Actions,16:29:02,16:29:16,16:29:34,0:00:32,0:00:18
 https://github.com/compare-ci/admin/issues/193,node-sum,2020-05-25 16:28:47,Travis CI,16:29:02,16:29:35,16:30:09,0:01:07,0:00:34
 https://github.com/compare-ci/admin/issues/193,node-sum,2020-05-25 16:28:47,CircleCI Checks,16:29:02,16:29:03,16:30:02,0:01:00,0:00:59
+https://github.com/compare-ci/admin/issues/194,python-sum,2020-05-25 20:28:36,Azure Pipelines,20:28:42,20:29:10,20:29:20,0:00:38,0:00:10
+https://github.com/compare-ci/admin/issues/194,python-sum,2020-05-25 20:28:36,GitHub Actions,20:28:42,20:28:57,20:29:01,0:00:19,0:00:04
+https://github.com/compare-ci/admin/issues/194,python-sum,2020-05-25 20:28:36,Travis CI,20:28:42,20:29:02,20:29:20,0:00:38,0:00:18
+https://github.com/compare-ci/admin/issues/194,python-sum,2020-05-25 20:28:36,CircleCI Checks,20:28:42,20:28:43,20:28:52,0:00:10,0:00:09
+https://github.com/compare-ci/admin/issues/194,node-sum,2020-05-25 20:28:36,Azure Pipelines,20:28:49,20:29:06,20:29:29,0:00:40,0:00:23
+https://github.com/compare-ci/admin/issues/194,node-sum,2020-05-25 20:28:36,GitHub Actions,20:28:49,20:29:06,20:29:20,0:00:31,0:00:14
+https://github.com/compare-ci/admin/issues/194,node-sum,2020-05-25 20:28:36,Travis CI,20:28:49,20:29:12,20:29:46,0:00:57,0:00:34
+https://github.com/compare-ci/admin/issues/194,node-sum,2020-05-25 20:28:36,CircleCI Checks,20:28:49,20:28:51,20:29:24,0:00:35,0:00:33
