@@ -31,8 +31,9 @@ function timeToSecs(time) {
 }
 
 function makeChart(rows) {
-    let repos = [...new Set(rows.map(function(d) {return d.Repo}))];
     let apps = [...new Set(rows.map(function(d) {return d.App}))];
+    rows = rows.slice(rows.length - (100 * apps.length), rows.length);
+    let repos = [...new Set(rows.map(function(d) {return d.Repo}))];
     let urls = [...new Set(rows.map(function(d) {return d.URL}))];
     let colours = {
         "Azure Pipelines": "blue",
@@ -65,7 +66,6 @@ function makeChart(rows) {
                 dataset[data.App].data.push(timeToSecs(data.Total))
             }
         }
-        console.log(Object.values(dataset))
 
         let chart = new Chart(ctx, {
             type: 'line',
