@@ -164,6 +164,7 @@ for x in range(0, 60):
         print("Waiting.")
         time.sleep(10)
     else:
+        issue.edit(state="closed")
         print("All pull requests processed.")
         break
 
