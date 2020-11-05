@@ -8055,3 +8055,7 @@ https://github.com/compare-ci/admin/issues/1178,node-sum,2020-11-05 12:31:35,Azu
 https://github.com/compare-ci/admin/issues/1178,node-sum,2020-11-05 12:31:35,Travis CI,12:31:45,12:32:21,12:33:01,0:01:16,0:00:40
 https://github.com/compare-ci/admin/issues/1178,node-sum,2020-11-05 12:31:35,GitHub Actions,12:31:45,12:31:56,12:32:10,0:00:25,0:00:14
 https://github.com/compare-ci/admin/issues/1178,node-sum,2020-11-05 12:31:35,CircleCI Checks,12:31:45,12:31:46,12:32:46,0:01:01,0:01:00
+https://github.com/compare-ci/admin/issues/1179,node-sum,2020-11-05 16:44:53,Azure Pipelines,16:45:04,16:45:52,16:46:17,0:01:13,0:00:25
+https://github.com/compare-ci/admin/issues/1179,node-sum,2020-11-05 16:44:53,GitHub Actions,16:45:04,16:45:20,16:45:54,0:00:50,0:00:34
+https://github.com/compare-ci/admin/issues/1179,node-sum,2020-11-05 16:44:53,Travis CI,16:45:04,16:45:40,16:46:23,0:01:19,0:00:43
+https://github.com/compare-ci/admin/issues/1179,node-sum,2020-11-05 16:44:53,CircleCI Checks,16:45:04,16:45:05,16:46:05,0:01:01,0:01:00
