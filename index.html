@@ -31,16 +31,19 @@ function timeToSecs(time) {
 }
 
 function makeChart(rows) {
-    let apps = [...new Set(rows.map(function(d) {return d.App}))];
-    rows = rows.slice(rows.length - (20 * apps.length), rows.length);
-    let repos = [...new Set(rows.map(function(d) {return d.Repo}))];
-    let urls = [...new Set(rows.map(function(d) {return d.URL}))];
     let colours = {
         "Azure Pipelines": "blue",
         "GitHub Actions": "firebrick",
         //"Travis CI": "green",
         "CircleCI Checks": "darkgrey"
     }
+
+    let apps = Object.keys(colours);
+    rows = rows.slice(rows.length - (50 * apps.length), rows.length);
+    let repos = [...new Set(rows.map(function(d) {return d.Repo}))];
+    let urls = [...new Set(rows.map(function(d) {return d.URL}))];
+
+
     for (let repoName of repos) {
         let header = document.createElement("h2");
         header.innerText = repoName;

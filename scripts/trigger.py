@@ -88,6 +88,7 @@ for repo in org.get_repos().get_page(0):
 
 def udpate_with_time(issue, repo, pull, check_run):
     # Reget, just in case.
+    print("Updating issue: %s with times" % (issue.number))
     issue = org.get_repo("admin").get_issue(issue.number)
     lines = issue.body.split("\n")
     found = 0
