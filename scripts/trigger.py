@@ -38,6 +38,7 @@ def create_pull_request(repository, issue):
         parents=[repo.get_commits()[0].commit]
     )
     branch_ref = repo.get_git_ref("heads/%s" % time_str)
+    time.sleep(5)
     branch_ref.edit(new_commit.sha)
     pull = repo.create_pull(title, "Supports %s" % issue.html_url, "master", branch)
     print("Created pull request successfully:", pull.number)
