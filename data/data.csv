@@ -16764,3 +16764,9 @@ https://github.com/compare-ci/admin/issues/2822,python-sum,2022-04-03 04:43:33,C
 https://github.com/compare-ci/admin/issues/2822,node-sum,2022-04-03 04:43:33,Azure Pipelines,04:43:38,04:43:51,04:44:24,0:00:46,0:00:33
 https://github.com/compare-ci/admin/issues/2822,node-sum,2022-04-03 04:43:33,GitHub Actions,04:43:38,04:43:49,04:44:13,0:00:35,0:00:24
 https://github.com/compare-ci/admin/issues/2822,node-sum,2022-04-03 04:43:33,CircleCI Checks,04:43:38,04:43:39,04:43:53,0:00:15,0:00:14
+https://github.com/compare-ci/admin/issues/2823,python-sum,2022-04-03 08:37:45,Azure Pipelines,08:37:48,08:38:06,08:38:19,0:00:31,0:00:13
+https://github.com/compare-ci/admin/issues/2823,python-sum,2022-04-03 08:37:45,GitHub Actions,08:37:48,08:38:00,08:38:02,0:00:14,0:00:02
+https://github.com/compare-ci/admin/issues/2823,python-sum,2022-04-03 08:37:45,CircleCI Checks,08:37:48,08:37:49,08:37:53,0:00:05,0:00:04
+https://github.com/compare-ci/admin/issues/2823,node-sum,2022-04-03 08:37:45,Azure Pipelines,08:37:51,08:38:09,08:38:45,0:00:54,0:00:36
+https://github.com/compare-ci/admin/issues/2823,node-sum,2022-04-03 08:37:45,GitHub Actions,08:37:51,08:38:02,08:38:26,0:00:35,0:00:24
+https://github.com/compare-ci/admin/issues/2823,node-sum,2022-04-03 08:37:45,CircleCI Checks,08:37:51,08:37:53,08:38:10,0:00:19,0:00:17
