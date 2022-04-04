@@ -1,4 +1,4 @@
-**As of April 4th, this is disabled and won't be updating anymore**
+**As of April 4th 2022, this is disabled and won't be updating anymore**
 
 Compare CI is an organisation that allows you to take a build on a repository and run it against multiple providers at regular intervals and compare the results.
 
